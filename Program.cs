@@ -4,7 +4,8 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            WeatherSystem weatherSystem = new WeatherSystem();
+            Console.WriteLine(weatherSystem.Time);
         }
     }
 }

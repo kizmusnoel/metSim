@@ -3,33 +3,17 @@
     internal class Program
     {
         static string[] mainMenu = { "Normal simulation", "Game simulation" };
-        static string[] simulationMenu = { "Cast rain", "Cast thunder" };
+        static string[] simulationMenu = { "Back to Main Menu", "Cast rain", "Cast thunder" };
         static int highlightPos;
+        static string[] activeMenu = mainMenu;
+
         static void Main(string[] args)
         {
-            ConsoleKey menu;
 
             WeatherSystem weatherSystem = new WeatherSystem();
             Console.WriteLine(weatherSystem.Time);
 
-            string[] activeMenu = mainMenu;
-            do
-            {
-                menu = Menu(activeMenu);
-                switch (menu)
-                {
-                    case ConsoleKey.DownArrow: highlightPos++; break;
-                    case ConsoleKey.UpArrow: highlightPos--; break;
-                    case ConsoleKey.Enter:
-                        {
-                            switch (highlightPos)
-                            {
-                                case 0: activeMenu = simulationMenu; break;
-                                case 1: Console.WriteLine("b"); Console.ReadKey(); break;
-                            }
-                        }; break;
-                }
-            } while (menu != ConsoleKey.Escape);
+            DrawMenu();
 
         }
 
@@ -64,6 +48,47 @@
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.BackgroundColor = ConsoleColor.Black;
             }
+        }
+
+        static void GameSimulation()
+        {
+            Console.Clear();
+            Console.WriteLine("Game simulation");
+            Console.ReadKey(true);
+        }
+
+        static void DrawMenu()
+        {
+            ConsoleKey menu;
+
+            do
+            {
+                menu = Menu(activeMenu);
+                switch (menu)
+                {
+                    case ConsoleKey.DownArrow: highlightPos++; break;
+                    case ConsoleKey.UpArrow: highlightPos--; break;
+                    case ConsoleKey.Enter:
+                        {
+                            if (activeMenu == mainMenu)
+                            {
+                                switch (highlightPos)
+                                {
+                                    case 0: activeMenu = simulationMenu; break;
+                                    case 1: GameSimulation(); break;
+                                }
+                            }
+                            else if (activeMenu == simulationMenu)
+                            {
+                                switch (highlightPos)
+                                {
+                                    case 0: activeMenu = mainMenu; break;
+                                    case 1: break;
+                                }
+                            }
+                        }; highlightPos = 0; break;
+                }
+            } while (menu != ConsoleKey.Escape);
         }
     }
 }

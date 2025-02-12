@@ -32,7 +32,8 @@ namespace Meteorology_Sim
         {
             for (int i = 0; i < Tiles.Count; i++)
             {
-                Tiles[i].State = "";
+                Tiles[i].State = Tiles[i].states[rnd.Next(Tiles[i].states.Length)];
+                Tiles[i].Seed = Tiles[i].seeds[rnd.Next(Tiles[i].seeds.Length)];
             }
         }
     }

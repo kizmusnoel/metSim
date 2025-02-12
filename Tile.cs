@@ -8,26 +8,23 @@ namespace Meteorology_Sim
 {
     internal class Tile
     {
-        public string State { get; set; } = "dry"; // wet, ruined, seeded, dry
-        public string SeededWith { get; private set; } = "N"; // corn, potato, tomato, ...
-
-        public void Seed(string seed)
-        {
-            State = "seeded";
-            SeededWith = seed;
-        }
+        public string[] states = { "wet", "ruined", "dry" };
+        public string[] seeds = { "corn", "potato", "tomato", "nothing" };
+        public string State { get; set; } = "dry";
+        public string Seed { get; set; } = "nothing";
 
         public override string ToString()
         {
-            switch (State) {
+            if (Seed == "nothing") Console.BackgroundColor = ConsoleColor.Black;
+            else switch (State)
+            {
                 case "wet": Console.BackgroundColor = ConsoleColor.DarkGreen; break;
-                case "ruined": Console.BackgroundColor = ConsoleColor.Red; break;
-                case "seeded": Console.BackgroundColor = ConsoleColor.DarkRed; break;
+                case "ruined": Console.BackgroundColor = ConsoleColor.White; break;
                 case "dry": Console.BackgroundColor = ConsoleColor.Green; break;
-
             }
 
-            return " " + Convert.ToString(char.ToUpper(Convert.ToChar(SeededWith[0]))) + " ";
+
+            return " " + Convert.ToString(char.ToUpper(Convert.ToChar(Seed[0]))) + " ";
         }
     }
 }

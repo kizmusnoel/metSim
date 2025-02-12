@@ -10,7 +10,7 @@
 
         static void Main(string[] args)
         {
-
+            simulation.RandomizeTiles();
             DrawMenu();
 
         }

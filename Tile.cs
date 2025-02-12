@@ -21,8 +21,7 @@ namespace Meteorology_Sim
                     case "dry": Console.BackgroundColor = ConsoleColor.Green; break;
                 }
 
-
-            return " " + Convert.ToString(char.ToUpper(Convert.ToChar(Seed[0]))) + " ";
+            return " " + Convert.ToString(char.ToUpper(Seed[0])) + " ";
         }
     }
 }

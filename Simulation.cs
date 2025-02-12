@@ -9,13 +9,14 @@ namespace Meteorology_Sim
 
     internal class Simulation
     {
-        Random rnd = new Random();
+        static Random rnd = new Random();
 
         public string[] tileStates = { "wet", "ruined", "dry" };
         public string[] seeds = { "corn", "potato", "tomato", "nothing" };
         public DateTime Time { get; private set; } = DateTime.MinValue;
 
         public List<Tile> Tiles { get; private set; } = new List<Tile>();
+        public List<Weather> Weathers { get; private set; } = [new Weather("Wind"), new Weather("Thunderstorm"), new Weather("Rain"), new Weather("Snow"), new Weather("Sunny weather")];
 
         public int Size { get; }
 

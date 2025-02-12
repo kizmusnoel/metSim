@@ -2,15 +2,17 @@
 {
     internal class Program
     {
-        static string[] mainMenu = { "Cast weather effects", "View simulation" };
+        static Random rnd = new Random();
+        static string[] mainMenu = { "Cast weather effects", "Continue simulation", "Exit" };
         static string[] simulationMenu = { "Back to Main Menu", "Cast rain", "Cast snow", "Cast sunny weather", "Cast thunderstorm", "Cast wind" };
         static int highlightPos;
         static string[] activeMenu = mainMenu;
         static Simulation simulation = new Simulation(20);
+        static Weather nextWeather = simulation.Weathers[rnd.Next(simulation.Weathers.Count)];
 
         static void Main(string[] args)
         {
-            Console.SetWindowSize(80, 50);
+            Console.SetWindowSize(80, 40);
             simulation.RandomizeTiles();
             DrawMenu();
         }
@@ -20,6 +22,7 @@
         {
             Console.Clear();
             Console.WriteLine("MetSim - Meteorology Simulation\n");
+            Console.WriteLine($"Weather forecast: {nextWeather.Name} | Intensity (1-10): {nextWeather.Intensity:f2} | Approx. {nextWeather.Duration.Minute} minutes\n");
 
 
             if (highlightPos > options.Length - 1) highlightPos = 0;
@@ -57,6 +60,10 @@
             DisplayExplanation();
             DisplayGarden();
             activeMenu = simulationMenu;
+
+            Console.BackgroundColor = ConsoleColor.Black;
+
+            Console.WriteLine("\nPress ENTER to proceed");
             Console.ReadKey(true);
         }
 
@@ -108,6 +115,7 @@
                                 {
                                     case 0: activeMenu = simulationMenu; break;
                                     case 1: Simulation(); break;
+                                    case 2: return;
                                 }
                             }
                             else if (activeMenu == simulationMenu)

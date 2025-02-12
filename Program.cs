@@ -2,16 +2,14 @@
 {
     internal class Program
     {
-        static string[] mainMenu = { "Normal simulation", "Game simulation" };
+        static string[] mainMenu = { "Cast weather effects", "View simulation" };
         static string[] simulationMenu = { "Back to Main Menu", "Cast rain", "Cast thunder" };
         static int highlightPos;
         static string[] activeMenu = mainMenu;
+        static Simulation simulation = new Simulation(10);
 
         static void Main(string[] args)
         {
-
-            WeatherSystem weatherSystem = new WeatherSystem();
-            Console.WriteLine(weatherSystem.Time);
 
             DrawMenu();
 
@@ -21,6 +19,7 @@
         static ConsoleKey Menu(string[] options)
         {
             Console.Clear();
+
 
             if (highlightPos > options.Length - 1) highlightPos = 0;
             else if (highlightPos < 0) highlightPos = options.Length - 1;
@@ -50,11 +49,21 @@
             }
         }
 
-        static void GameSimulation()
+        static void Simulation()
         {
             Console.Clear();
-            Console.WriteLine("Game simulation");
+            Console.WriteLine("Simulation");
+            Garden();
             Console.ReadKey(true);
+        }
+
+        static void Garden()
+        {
+            for (int i = 0; i < simulation.Tiles.Count; i++)
+            {
+                if (i % simulation.Size == 0) Console.WriteLine();
+                Console.Write(simulation.Tiles[i]);
+            }
         }
 
         static void DrawMenu()
@@ -63,6 +72,7 @@
 
             do
             {
+                Console.BackgroundColor = ConsoleColor.Black;
                 menu = Menu(activeMenu);
                 switch (menu)
                 {
@@ -75,7 +85,7 @@
                                 switch (highlightPos)
                                 {
                                     case 0: activeMenu = simulationMenu; break;
-                                    case 1: GameSimulation(); break;
+                                    case 1: Simulation(); break;
                                 }
                             }
                             else if (activeMenu == simulationMenu)

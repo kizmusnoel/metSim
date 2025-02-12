@@ -6,15 +6,18 @@ using System.Threading.Tasks;
 
 namespace Meteorology_Sim
 {
-    
+
     internal class Simulation
     {
         Random rnd = new Random();
+
+        public string[] tileStates = { "wet", "ruined", "dry" };
+        public string[] seeds = { "corn", "potato", "tomato", "nothing" };
         public DateTime Time { get; private set; } = DateTime.MinValue;
 
         public List<Tile> Tiles { get; private set; } = new List<Tile>();
 
-        public int Size { get;}
+        public int Size { get; }
 
         public Simulation(int size)
         {
@@ -32,8 +35,8 @@ namespace Meteorology_Sim
         {
             for (int i = 0; i < Tiles.Count; i++)
             {
-                Tiles[i].State = Tiles[i].states[rnd.Next(Tiles[i].states.Length)];
-                Tiles[i].Seed = Tiles[i].seeds[rnd.Next(Tiles[i].seeds.Length)];
+                Tiles[i].State = tileStates[rnd.Next(tileStates.Length)];
+                Tiles[i].Seed = seeds[rnd.Next(seeds.Length)];
             }
         }
     }

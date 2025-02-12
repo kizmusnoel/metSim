@@ -6,13 +6,12 @@
         static string[] simulationMenu = { "Back to Main Menu", "Cast rain", "Cast thunder" };
         static int highlightPos;
         static string[] activeMenu = mainMenu;
-        static Simulation simulation = new Simulation(10);
+        static Simulation simulation = new Simulation(20);
 
         static void Main(string[] args)
         {
             simulation.RandomizeTiles();
             DrawMenu();
-
         }
 
 
@@ -69,7 +68,6 @@
         static void DrawMenu()
         {
             ConsoleKey menu;
-
             do
             {
                 Console.BackgroundColor = ConsoleColor.Black;

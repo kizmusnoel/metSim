@@ -12,7 +12,7 @@ namespace Meteorology_Sim
         public string Name { get; private set; }
         public double Intensity { get; private set; } = rnd.NextDouble() * 10;
 
-        public DateTime Duration { get; private set; } = DateTime.MinValue.AddMinutes(rnd.Next(10, 400));
+        public DateTime Duration { get; private set; } = DateTime.MinValue.AddMinutes(rnd.Next(25, 400));
 
 
         public Weather(string name)

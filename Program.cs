@@ -12,7 +12,7 @@
 
         static void Main(string[] args)
         {
-            Console.SetWindowSize(80, 40);
+            Console.SetWindowSize(100, 40);
             simulation.RandomizeTiles();
             DrawMenu();
         }
@@ -22,7 +22,7 @@
         {
             Console.Clear();
             Console.WriteLine("MetSim - Meteorology Simulation\n");
-            Console.WriteLine($"Weather forecast: {nextWeather.Name} | Intensity (1-10): {nextWeather.Intensity:f2} | Approx. {nextWeather.Duration.Minute} minutes\n");
+            Console.WriteLine($"Weather forecast: {nextWeather.Name} | Intensity (1-10): {nextWeather.Intensity:f2} | Duration: approx. {nextWeather.Duration.Minute} minutes\n");
 
 
             if (highlightPos > options.Length - 1) highlightPos = 0;
@@ -56,15 +56,37 @@
         static void Simulation()
         {
             Console.Clear();
-            Console.WriteLine("Simulation for a garden");
+            Console.WriteLine("MetSim - Meteorology Simulation\n");
+            Console.WriteLine($"Weather forecast: {nextWeather.Name} | Intensity (1-10): {nextWeather.Intensity:f2} | Duration: approx. {nextWeather.Duration.Minute} minutes\n");
+
             DisplayExplanation();
             DisplayGarden();
             activeMenu = simulationMenu;
 
             Console.BackgroundColor = ConsoleColor.Black;
 
-            Console.WriteLine("\nPress ENTER to proceed");
+            Console.WriteLine("\n\nPress ENTER to cast weather");
             Console.ReadKey(true);
+
+
+            Console.Clear();
+            Console.WriteLine("MetSim - Meteorology Simulation\n");
+            Console.WriteLine($"Simulating weather: {nextWeather.Name}");
+
+            Cast(nextWeather);
+
+            DisplayExplanation();
+            DisplayGarden();
+
+            Console.BackgroundColor = ConsoleColor.Black;
+
+            Console.WriteLine("\n\nPress ENTER to return to main menu");
+            Console.ReadKey(true);
+        }
+
+        static void Cast(Weather weather)
+        {
+            simulation.RandomizeTiles();
         }
 
         static void DisplayExplanation()
@@ -123,7 +145,7 @@
                                 switch (highlightPos)
                                 {
                                     case 0: activeMenu = mainMenu; break;
-                                    case 1: break;
+                                    case 1: nextWeather = new Weather("Rain", 10, 10); break;
                                 }
                             }
                         }; highlightPos = 0; break;

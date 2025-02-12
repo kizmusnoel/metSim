@@ -23,7 +23,7 @@ namespace Meteorology_Sim
         {
             Name = name;
             Intensity = intensity;
-            Duration = Duration.AddMinutes(minutes);
+            Duration = DateTime.MinValue.AddMinutes(minutes);
         }
     }
 }

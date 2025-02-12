@@ -3,7 +3,7 @@
     internal class Program
     {
         static string[] mainMenu = { "Cast weather effects", "View simulation" };
-        static string[] simulationMenu = { "Back to Main Menu", "Cast rain", "Cast thunder" };
+        static string[] simulationMenu = { "Back to Main Menu", "Cast rain", "Cast snow", "Cast sunny weather", "Cast thunderstorm", "Cast wind"};
         static int highlightPos;
         static string[] activeMenu = mainMenu;
         static Simulation simulation = new Simulation(20);
@@ -18,6 +18,7 @@
         static ConsoleKey Menu(string[] options)
         {
             Console.Clear();
+            Console.WriteLine("MetSim - Meteorology Simulation\n");
 
 
             if (highlightPos > options.Length - 1) highlightPos = 0;
@@ -52,11 +53,12 @@
         {
             Console.Clear();
             Console.WriteLine("Simulation");
-            Garden();
+            DisplayGarden();
+            activeMenu = simulationMenu;
             Console.ReadKey(true);
         }
 
-        static void Garden()
+        static void DisplayGarden()
         {
             for (int i = 0; i < simulation.Tiles.Count; i++)
             {

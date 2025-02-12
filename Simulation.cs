@@ -22,12 +22,9 @@ namespace Meteorology_Sim
         public Simulation(int size)
         {
             Size = size;
-            for (int i = 0; i < size; i++)
+            for (int i = 0; i < size * size; i++)
             {
-                for (int j = 0; j < size; j++)
-                {
-                    Tiles.Add(new Tile());
-                }
+                Tiles.Add(new Tile());
             }
         }
 

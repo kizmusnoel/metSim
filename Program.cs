@@ -3,13 +3,14 @@
     internal class Program
     {
         static string[] mainMenu = { "Cast weather effects", "View simulation" };
-        static string[] simulationMenu = { "Back to Main Menu", "Cast rain", "Cast snow", "Cast sunny weather", "Cast thunderstorm", "Cast wind"};
+        static string[] simulationMenu = { "Back to Main Menu", "Cast rain", "Cast snow", "Cast sunny weather", "Cast thunderstorm", "Cast wind" };
         static int highlightPos;
         static string[] activeMenu = mainMenu;
         static Simulation simulation = new Simulation(20);
 
         static void Main(string[] args)
         {
+            Console.SetWindowSize(80, 50);
             simulation.RandomizeTiles();
             DrawMenu();
         }
@@ -52,10 +53,31 @@
         static void Simulation()
         {
             Console.Clear();
-            Console.WriteLine("Simulation");
+            Console.WriteLine("Simulation for a garden");
+            DisplayExplanation();
             DisplayGarden();
             activeMenu = simulationMenu;
             Console.ReadKey(true);
+        }
+
+        static void DisplayExplanation()
+        {
+            Console.WriteLine("\nSign explanation:");
+            Console.BackgroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine("Wet ground");
+            Console.BackgroundColor = ConsoleColor.Green;
+            Console.WriteLine("Dry ground");
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.WriteLine("Not seeded");
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.WriteLine("Ruined land\n");
+            Console.ForegroundColor = ConsoleColor.White;
+
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.WriteLine("C - Corn");
+            Console.WriteLine("P - Potato");
+            Console.WriteLine("T - Tomato");
         }
 
         static void DisplayGarden()

@@ -8,10 +8,10 @@ namespace Meteorology_Sim
 {
     internal class Weather
     {
-        public string Name { get; set; }
-        public double Intensity { get; set; }
+        public string Name { get; private set; }
+        public double Intensity { get; private set; }
 
-        public DateTime Duration { get; set; } = DateTime.MinValue;
+        public DateTime Duration { get; private set; } = DateTime.MinValue;
 
 
         public Weather(string name, double intensity, int minutes)

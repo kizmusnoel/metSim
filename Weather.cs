@@ -10,9 +10,27 @@ namespace Meteorology_Sim
     {
         static Random rnd = new Random();
         public string Name { get; private set; }
-        public double Intensity { get; private set; } = rnd.NextDouble() * 10;
+        double _intensity = rnd.NextDouble() * 9 + 1;
+        int _minutes = rnd.Next(15, 400);
+        public double Intensity
+        {
+            get => _intensity;
+            private set
+            {
+                if (value >= 1 && value <= 10) _intensity = value;
+                else throw new Exception("Please enter a valid intensity (1-10)!");
+            }
+        }
 
-        public DateTime Duration { get; private set; } = DateTime.MinValue.AddMinutes(rnd.Next(25, 400));
+        public int Minutes
+        {
+            get => _minutes;
+            private set
+            {
+                if (value >= 10) _minutes = value;
+                else throw new Exception("Please enter a valid duration (more than 10)!");
+            }
+        }
 
 
         public Weather(string name)
@@ -23,7 +41,7 @@ namespace Meteorology_Sim
         {
             Name = name;
             Intensity = intensity;
-            Duration = DateTime.MinValue.AddMinutes(minutes);
+            Minutes = minutes;
         }
     }
 }

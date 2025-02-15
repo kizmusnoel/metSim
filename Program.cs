@@ -21,7 +21,7 @@
         {
             Console.Clear();
             Console.WriteLine("MetSim - Meteorology Simulation\n");
-            Console.WriteLine($"Weather forecast: {nextWeather.Name} | Intensity (1-10): {nextWeather.Intensity:f2} | Duration: approx. {nextWeather.Duration.Minute} minutes\n");
+            Console.WriteLine($"Weather forecast: {nextWeather.Name} | Intensity (1-10): {nextWeather.Intensity:f2} | Duration: approx. {nextWeather.Minutes} minutes\n");
 
 
             if (highlightPos > options.Length - 1) highlightPos = 0;
@@ -56,7 +56,7 @@
         {
             Console.Clear();
             Console.WriteLine("MetSim - Meteorology Simulation\n");
-            Console.WriteLine($"Weather forecast: {nextWeather.Name} | Intensity (1-10): {nextWeather.Intensity:f2} | Duration: approx. {nextWeather.Duration.Minute} minutes\n");
+            Console.WriteLine($"Weather forecast: {nextWeather.Name} | Intensity (1-10): {nextWeather.Intensity:f2} | Duration: approx. {nextWeather.Minutes} minutes\n");
 
             DisplayExplanation();
             DisplayGarden();
@@ -114,6 +114,29 @@
             {
                 if (i % simulation.Size == 0) Console.WriteLine();
                 Console.Write(simulation.Tiles[i]);
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
+        }
+
+        static void SetNextWeather(string name)
+        {
+            Console.Clear();
+            Console.WriteLine($"Set parameters for simulated weather: {name}");
+            Console.WriteLine("---------------------------------------------");
+            try
+            {
+                Console.Write("| Intensity (1-10): ");
+                double a = Convert.ToDouble(Console.ReadLine());
+
+                Console.Write("| Duration (10< minutes): ");
+                int b = Convert.ToInt32(Console.ReadLine());
+
+                nextWeather = new Weather(name, a, b);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.ReadKey(true);
             }
         }
 
@@ -144,7 +167,11 @@
                                 switch (highlightPos)
                                 {
                                     case 0: activeMenu = mainMenu; break;
-                                    case 1: nextWeather = new Weather("Rain", 10, 10); break;
+                                    case 1: SetNextWeather("Rain"); break;
+                                    case 2: SetNextWeather("Snow"); break;
+                                    case 3: SetNextWeather("Sunny weather"); break;
+                                    case 4: SetNextWeather("Thunderstorm"); break;
+                                    case 5: SetNextWeather("Wind"); break;
                                 }
                             }
                         }; highlightPos = 0; break;

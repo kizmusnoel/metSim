@@ -3,7 +3,7 @@
     internal class Program
     {
         static Random rnd = new Random();
-        static string[] mainMenu = { "Cast weather effects", "Continue simulation", "Exit" };
+        static string[] mainMenu = { "Exit", "Cast weather effects", "Continue simulation", "Reset simulation" };
         static string[] simulationMenu = { "Back to Main Menu", "Cast rain", "Cast snow", "Cast sunny weather", "Cast thunderstorm", "Cast wind" };
         static int highlightPos;
         static string[] activeMenu = mainMenu;
@@ -60,7 +60,6 @@
 
             DisplayExplanation();
             DisplayGarden();
-            activeMenu = simulationMenu;
 
             Console.BackgroundColor = ConsoleColor.Black;
 
@@ -68,24 +67,31 @@
             Console.ReadKey(true);
 
 
-            Console.Clear();
-            Console.WriteLine("MetSim - Meteorology Simulation\n");
-            Console.WriteLine($"Simulating weather: {nextWeather.Name}");
 
-            Cast(nextWeather);
+            for (int j = 0; j < nextWeather.Minutes; j++)
+            {
+                Console.Clear();
+                Console.WriteLine("MetSim - Meteorology Simulation\n");
+                Console.WriteLine($"Simulating weather: {nextWeather.Name}, ticks left: {nextWeather.Minutes - j - 1}");
 
-            DisplayExplanation();
-            DisplayGarden();
+                double intensity = nextWeather.Intensity / nextWeather.Minutes * (j + 1);
+                for (int i = 0; i < simulation.Tiles.Count; i++)
+                {
+                    double chance = rnd.NextDouble() * 9;
+                    simulation.Tiles[i].Chance = chance <= nextWeather.Intensity;
+                    if (simulation.Tiles[i].Chance) simulation.Tiles[i].Chance = chance <= intensity;
+                }
 
-            Console.BackgroundColor = ConsoleColor.Black;
+                simulation.Cast(nextWeather);
+
+                DisplayExplanation();
+                DisplayGarden();
+                Console.BackgroundColor = ConsoleColor.Black;
+                Thread.Sleep(1);
+            }
 
             Console.WriteLine("\n\nPress ENTER to return to main menu");
             Console.ReadKey(true);
-        }
-
-        static void Cast(Weather weather)
-        {
-            simulation.RandomizeTiles();
         }
 
         static void DisplayExplanation()
@@ -157,9 +163,10 @@
                             {
                                 switch (highlightPos)
                                 {
-                                    case 0: activeMenu = simulationMenu; break;
-                                    case 1: Simulation(); break;
-                                    case 2: return;
+                                    case 0: return;
+                                    case 1: activeMenu = simulationMenu; break;
+                                    case 2: Simulation(); break;
+                                    case 3: simulation.RandomizeTiles(); break;
                                 }
                             }
                             else if (activeMenu == simulationMenu)

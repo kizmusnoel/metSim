@@ -37,5 +37,27 @@ namespace Meteorology_Sim
                 Tiles[i].Seed = seeds[rnd.Next(seeds.Length)];
             }
         }
+
+        public void Cast(Weather weather)
+        {
+            string[] snow = { "nothing", "ruined" };
+            string[] thunder = { "wet", "ruined" };
+
+            for (int i = 0; i < Tiles.Count; i++)
+            {
+                if (Tiles[i].Seed == "nothing" || Tiles[i].State == "ruined") continue;
+                else if (Tiles[i].Chance!)
+                {
+                    switch (weather.Name)
+                    {
+                        case "Rain": Tiles[i].State = "wet"; break;
+                        case "Snow": Tiles[i].Seed = snow[rnd.Next(2)]; break;
+                        case "Sunny weather": Tiles[i].State = "dry"; break;
+                        case "Thunderstorm": Tiles[i].State = thunder[rnd.Next(2)]; break;
+                        case "Wind": Tiles[i].State = "ruined"; break;
+                    }
+                }
+            }
+        }
     }
 }

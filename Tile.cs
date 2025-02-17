@@ -10,6 +10,7 @@ namespace Meteorology_Sim
     {
         public string State { get; set; } = "dry";
         public string Seed { get; set; } = "nothing";
+        public bool Chance { get; set; } = true;
 
         public override string ToString()
         {

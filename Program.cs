@@ -67,22 +67,25 @@
             Console.ReadKey(true);
 
 
+            for (int i = 0; i < simulation.Tiles.Count; i++)
+            {
+                double chance = rnd.NextDouble() * 9 + 1;
+                simulation.Tiles[i].Changeable = chance <= nextWeather.Intensity;
+            }
 
-            for (int j = 0; j < nextWeather.Minutes; j++)
+            int ticks = nextWeather.Minutes % 100 + 10;
+
+            for (int j = 0; j < ticks; j++)
             {
                 Console.Clear();
                 Console.WriteLine("MetSim - Meteorology Simulation\n");
-                Console.WriteLine($"Simulating weather: {nextWeather.Name}, ticks left: {nextWeather.Minutes - j - 1}");
+                Console.WriteLine($"Simulating weather: {nextWeather.Name} | ticks left: {ticks - j - 1}");
 
-                double intensity = nextWeather.Intensity / nextWeather.Minutes * (j + 1);
-                for (int i = 0; i < simulation.Tiles.Count; i++)
+
+                for (int i = 0; i < simulation.Tiles.Count / ticks; i++)
                 {
-                    double chance = rnd.NextDouble() * 9;
-                    simulation.Tiles[i].Chance = chance <= nextWeather.Intensity;
-                    if (simulation.Tiles[i].Chance) simulation.Tiles[i].Chance = chance <= intensity;
+                    simulation.Cast(nextWeather);
                 }
-
-                simulation.Cast(nextWeather);
 
                 DisplayExplanation();
                 DisplayGarden();
@@ -98,9 +101,9 @@
         {
             Console.WriteLine("\nSign explanation:");
             Console.BackgroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine("Wet ground");
+            Console.WriteLine("Wet land");
             Console.BackgroundColor = ConsoleColor.Green;
-            Console.WriteLine("Dry ground");
+            Console.WriteLine("Dry land");
             Console.BackgroundColor = ConsoleColor.Black;
             Console.WriteLine("Not seeded");
             Console.BackgroundColor = ConsoleColor.White;

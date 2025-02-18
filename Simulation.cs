@@ -45,8 +45,8 @@ namespace Meteorology_Sim
 
             for (int i = 0; i < Tiles.Count; i++)
             {
-                if (Tiles[i].Seed == "nothing" || Tiles[i].State == "ruined") continue;
-                else if (Tiles[i].Chance!)
+                if (Tiles[i].State == "ruined") continue;
+                else if (Tiles[i].Changeable)
                 {
                     switch (weather.Name)
                     {
@@ -56,6 +56,8 @@ namespace Meteorology_Sim
                         case "Thunderstorm": Tiles[i].State = thunder[rnd.Next(2)]; break;
                         case "Wind": Tiles[i].State = "ruined"; break;
                     }
+                    Tiles[i].Changeable = false;
+                    return;
                 }
             }
         }

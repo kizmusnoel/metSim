@@ -10,7 +10,7 @@ namespace Meteorology_Sim
     {
         public string State { get; set; } = "dry";
         public string Seed { get; set; } = "nothing";
-        public bool Chance { get; set; } = true;
+        public bool Changeable { get; set; } = false;
 
         public override string ToString()
         {
@@ -21,7 +21,6 @@ namespace Meteorology_Sim
                     case "ruined": Console.BackgroundColor = ConsoleColor.White; break;
                     case "dry": Console.BackgroundColor = ConsoleColor.Green; break;
                 }
-
             return " " + Convert.ToString(char.ToUpper(Seed[0])) + " ";
         }
     }

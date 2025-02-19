@@ -104,17 +104,12 @@
             Console.WriteLine("Wet land");
             Console.BackgroundColor = ConsoleColor.Green;
             Console.WriteLine("Dry land");
-            Console.BackgroundColor = ConsoleColor.Black;
-            Console.WriteLine("Not seeded");
+            Console.BackgroundColor = ConsoleColor.Blue;
+            Console.WriteLine("Below -10 Celsius");
             Console.BackgroundColor = ConsoleColor.White;
             Console.ForegroundColor = ConsoleColor.Black;
-            Console.WriteLine("Ruined land\n");
+            Console.WriteLine("Snow\n");
             Console.ForegroundColor = ConsoleColor.White;
-
-            Console.BackgroundColor = ConsoleColor.Black;
-            Console.WriteLine("C - Corn");
-            Console.WriteLine("P - Potato");
-            Console.WriteLine("T - Tomato");
         }
 
         static void DisplayGarden()

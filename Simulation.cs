@@ -11,8 +11,7 @@ namespace Meteorology_Sim
     {
         static Random rnd = new Random();
 
-        public string[] tileStates = { "wet", "ruined", "dry" };
-        public string[] seeds = { "corn", "potato", "tomato", "nothing" };
+        public string[] tileStates = { "wet", "snow", "dry" };
         public DateTime Time { get; private set; } = DateTime.MinValue;
 
         public List<Tile> Tiles { get; private set; } = new List<Tile>();
@@ -34,27 +33,23 @@ namespace Meteorology_Sim
             for (int i = 0; i < Tiles.Count; i++)
             {
                 Tiles[i].State = tileStates[rnd.Next(tileStates.Length)];
-                Tiles[i].Seed = seeds[rnd.Next(seeds.Length)];
+                Tiles[i].Temperature = rnd.Next(20, 30);
             }
         }
 
         public void Cast(Weather weather)
         {
-            string[] snow = { "nothing", "ruined" };
-            string[] thunder = { "wet", "ruined" };
-
             for (int i = 0; i < Tiles.Count; i++)
             {
-                if (Tiles[i].State == "ruined") continue;
-                else if (Tiles[i].Changeable)
+                if (Tiles[i].Changeable)
                 {
                     switch (weather.Name)
                     {
-                        case "Rain": Tiles[i].State = "wet"; break;
-                        case "Snow": Tiles[i].Seed = snow[rnd.Next(2)]; break;
-                        case "Sunny weather": Tiles[i].State = "dry"; break;
-                        case "Thunderstorm": Tiles[i].State = thunder[rnd.Next(2)]; break;
-                        case "Wind": Tiles[i].State = "ruined"; break;
+                        case "Rain": Tiles[i].State = "wet"; Tiles[i].Temperature -= rnd.Next(10); break;
+                        case "Snow": Tiles[i].State = "snow"; Tiles[i].Temperature -= rnd.Next(15); break;
+                        case "Sunny weather": Tiles[i].State = "dry"; Tiles[i].Temperature += rnd.Next(5, 15); break;
+                        case "Thunderstorm": Tiles[i].State = "wet"; Tiles[i].Temperature -= rnd.Next(20); break;
+                        case "Wind": Tiles[i].Temperature -= rnd.Next(10, 20); break;
                     }
                     Tiles[i].Changeable = false;
                     return;
